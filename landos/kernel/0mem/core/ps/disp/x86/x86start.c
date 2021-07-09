@@ -177,9 +177,6 @@ executa_tarefa (
 
 void KiSwitchToUserMode (void)
 {
-	// #todo: 
-	// Fazer rotina de interface.
-
     switch_to_user_mode();
 }
 

@@ -98,16 +98,13 @@ void config_user (void)
     userconfig_Status = 0;    //#todo
 }
 
-
 /*
- ***************
  * CreateUser:
  *     Cria um usuário do computador.
  *     #importante: Quando criar um usuário tem que 
  * montar uma pasta para ele em /root/user/(name)
  * Se utilizar um usuário válido é só pegar os arquivos de 
  * configuração dentro da pasta.
- * 
  */
  
 void *CreateUser ( char *name, int type ){
@@ -152,7 +149,6 @@ void *CreateUser ( char *name, int type ){
         New->used  = TRUE;
         New->magic = 1234;
         New->userType = type; 
-
         New->path = NULL;
         
         // The name.
@@ -169,9 +165,6 @@ void *CreateUser ( char *name, int type ){
             //if ( New->userName_len >= ???? ){}
         }
  
-
-
-
         //Session.
         //room. Window Station. (Desktop pool).
         //Desktop.
@@ -404,10 +397,7 @@ int is_superuser(void)
 
     // Is 'root' ?
 
-    if ( uid == 0 )
-    {
-        return TRUE;
-    }
+    if ( uid == 0 ){  return TRUE;  }
     
     return FALSE;
 }
@@ -421,7 +411,6 @@ int is_superuser(void)
 int __getusername (char *buffer)
 {
     char *login_buffer = (char *) buffer;
-
 
     if ( (void*) buffer == NULL ){
         debug_print ("__getusername: [FAIL] buffer\n");
@@ -442,25 +431,21 @@ int __getusername (char *buffer)
         return (int) CurrentUser->userName_len;
     };
 
-
     return (int) -1;
 }
 
 
 /*
- ************************************* 
  * __setusername: 
- *  
- * 
+ *
  */
 
 // O novo nome está no buffer passado via argumento.
 // Ele tem o limite de 64 bytes.
 // Vamos colocar ele na estrutura de usuário.
 
-int __setusername ( const char *new_username)
+int __setusername ( const char *new_username )
 {
-
     if ( (void*) new_username == NULL ){
         debug_print ("__setusername: [FAIL] new_username\n");
         return -1;

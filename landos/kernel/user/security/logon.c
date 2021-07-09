@@ -78,11 +78,10 @@ int ExitLogon (void);
 
 // It was called by KGWS_initialize() in kgws.c
 
-int init_logon_manager (void){
-
+int init_logon_manager (void)
+{
     struct window_d  *hWindow; 
     int z=0;
-
 
 	// #suspenso.
 	// Suspendemos o uso de variaveis importadas do Makefile,
@@ -90,7 +89,6 @@ int init_logon_manager (void){
 	// char str_tmp[120];
 
     debug_print ("init_logon_manager:\n");
-
 
     // #test
     // Nesse momento a tela ainda esta azul,
@@ -145,7 +143,7 @@ int init_logon_manager (void){
     //
 
     // #bugbug ?
-    // Não sei se essa estrutura é inicializada em outr lugar também.
+    // Não sei se essa estrutura é inicializada em outro lugar também.
 
     // See: window.h
 

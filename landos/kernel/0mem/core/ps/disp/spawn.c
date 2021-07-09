@@ -50,7 +50,7 @@ void KiSpawnThread (int tid){
 // #bugbug
 // Archtecture dependent stuff.
 // x86.
- 
+
 void spawn_thread (int tid)
 {
     struct thread_d  *Target;

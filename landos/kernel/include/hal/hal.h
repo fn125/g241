@@ -150,7 +150,8 @@ struct hardware_d
 	
 	//continua ...
 };
-struct hardware_d *Hardware;  
+
+struct hardware_d  *Hardware;  
 
 
 
@@ -169,7 +170,6 @@ struct firmware_d *Firmware;
 //
 
 
-  
 //Estrutura de disco. @todo: Colocar em outro arquivo.  
 struct drive_context_d 
 {
@@ -182,7 +182,7 @@ struct drive_context_d
 struct drive_context_d *DriveContext;  
 
 
-//Estrutura para informações sobre a placa mãe.  
+// Estrutura para informações sobre a placa mãe.  
 struct motherboard_d
 {
 	int mobodummy;

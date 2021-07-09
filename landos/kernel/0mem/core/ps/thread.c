@@ -28,7 +28,6 @@
 
 
 /*
- *******************************************************
  * exit_thread:
  *     Exit a thread.
  *     Torna o estado ZOMBIE mas não destrói a estrutura.
@@ -366,7 +365,7 @@ int thread_profiler( int service ){
 
 
 unsigned long 
-thread_get_profiler_percentage ( struct thread_d *thread)
+thread_get_profiler_percentage (struct thread_d *thread)
 {
     if ( (void *) thread == NULL ){
         panic ("thread_get_profiler_percentage: thread");
@@ -407,7 +406,6 @@ void thread_show_profiler_info (void){
 
 
 /*
- ***********************************
  * threadCopyThread:
  *     Clona uma thread.
  *     Usado no suporte a fork e execu��o de novos processos.
@@ -1446,7 +1444,6 @@ void show_thread_information (void){
 
     if ( (void *) ____IDLE == NULL ){
         panic ("dead_thread_collector: ____IDLE fail");
- 
     }else{
 
         if ( ____IDLE->used != 1 || ____IDLE->magic != 1234 )
@@ -1465,7 +1462,7 @@ void show_thread_information (void){
 	//Mostra Slots. 
 	//threadi.c
 
-    show_slots ();    
+    show_slots();    
 	
 	/*
 	 * @todo: 
@@ -1476,7 +1473,6 @@ void show_thread_information (void){
 	//show_queue_information(queue);
 	
 	//Nothing for now!
-	
 
     printf("Done\n");
     refresh_screen ();

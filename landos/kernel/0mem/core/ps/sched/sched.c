@@ -246,9 +246,8 @@ void sched_double_shot(void)
 // ela tem as instruções sti/hlt que atenua a utilização 
 // da CPU, reduzindo o consumo de energia.
 
-
-int scheduler (void){
-
+int scheduler (void)
+{
     int FirstTID = -1;
 
     // loop
@@ -382,8 +381,7 @@ void scheduler_lock (void){
 }
 
 // Unlock scheduler
-void scheduler_unlock (void)
-{
+void scheduler_unlock (void){
     g_scheduler_status = (unsigned long) UNLOCKED;
 }
 

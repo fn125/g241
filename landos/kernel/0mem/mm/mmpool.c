@@ -29,9 +29,9 @@ void *page (void);
  *     Inicializa o framepool. 
  */
 
-void initializeFramesAlloc (void){
-
-    struct page_d *p;
+void initializeFramesAlloc (void)
+{
+    struct page_d  *p;
 
     int __slot = 0;
 
@@ -189,13 +189,18 @@ void *newPage (void){
 			// Pega o id 
 			// Checa o limite de slots.
 
+            // #bugbug #todo
+            // Precisamos considerar o valor '0',
+            // ou falhará o primeiro uso do alocador.
+
+            //if ( New->id >= 0 && New->id < PAGE_COUNT_MAX )
             if ( New->id > 0 && New->id < PAGE_COUNT_MAX )
             {
 				//trava ou não??
                 New->locked = 0;
 
 				//contador de referências.
-                New->ref_count = 1;	
+                New->ref_count = 1;
 
 			    //#importante
 			    //precisamos pegar o endereço físico e dividir pelo tamanho da página.

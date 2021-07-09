@@ -79,8 +79,10 @@ static inline void __local_x86_set_cr3 (unsigned long value)
  * It selects the first thread to run and jumps to ring3. 
  */
 
-void x86mainStartFirstThread (void){
+// local
 
+void x86mainStartFirstThread (void)
+{
     struct thread_d  *Thread;
     int i=0;
 
@@ -145,8 +147,10 @@ void x86mainStartFirstThread (void){
 
     current_process = Thread->process->pid;
 
-    // list.
-    
+//
+// List
+//
+
     for ( i=0; i < PRIORITY_MAX; i++ )
     {
         dispatcherReadyList[i] = (unsigned long) Thread;
@@ -161,17 +165,12 @@ void x86mainStartFirstThread (void){
 
     turn_task_switch_on();
 
-
-
-
     // #todo
     // Isso deve ser liberado pelo processo init
     // depois que ele habilitar as interrupções.
     
     taskswitch_lock();
     scheduler_lock();
-
-
 
 
     // timerInit8253 ( HZ );
@@ -185,7 +184,7 @@ void x86mainStartFirstThread (void){
     // Set cr3 and flush TLB.
     // isso não é necessário se chamarmos spawn ela faz isso.
     __local_x86_set_cr3 ( (unsigned long) Thread->DirectoryPA );
-    
+
     // flush tlb
     asm ("movl %cr3, %eax");
     //#todo: delay.
@@ -198,7 +197,6 @@ void x86mainStartFirstThread (void){
 	//vamos iniciar antes para que
 	//possamos usar a current_tss quando criarmos as threads
 	//x86_init_gdt ();
-
 
     // ??
     asm ("clts \n");
@@ -298,29 +296,27 @@ void x86mainStartFirstThread (void){
  * __x86StartInit: 
  * 
  */
- 
+
 // Função local.
 // Inicializa só o init.bin
 
 void __x86StartInit (void){
 
     int fileret = -1;
- 
 
     debug_print ("__x86StartInit:\n");
 
 
-    //
-    // INIT.BIN
-    //
+//
+// Load image INIT.BIN.
+//
 
     // #importante
     // Carregado do diretório raiz
  
     unsigned long BUGBUG_IMAGE_SIZE_LIMIT = (512 * 4096);
 
-	// loading image.
-    
+    // loading image.
     // #bugbug
     // Loading from root dir. 512 entries limit.
 
@@ -337,18 +333,14 @@ void __x86StartInit (void){
         panic ("__x86StartInit: Coldn't load init.bin \n");
     }
 
-
 	// Creating init process.
-	
 	// > Cria um diretório que é clone do diretório do kernel base 
 	// Retornaremos o endereço virtual, para que a função create_process possa usar 
 	// tanto o endereço virtual quanto o físico.
-	
 	// > UPROCESS_IMAGE_BASE;
-	
 	// #todo
 	// temos que checar a validade do endereço do dir criado
-	//antes de passarmos..
+	// antes de passarmos..
 
     InitProcess = (void *) create_process ( 
                                NULL, NULL, NULL, 
@@ -362,15 +354,13 @@ void __x86StartInit (void){
     if ( (void *) InitProcess == NULL ){
         panic ("__x86StartInit: InitProcess\n");
     }else{
-
         InitProcess->position = SPECIAL_GUEST;
- 
         fs_initialize_process_cwd ( InitProcess->pid, "/" );
     };
 
 
-	//====================================================
-	// Create
+//====================================================
+// Create thread
 
     // #
     // Criamos um thread em ring3.
@@ -482,21 +472,19 @@ int x86main (void)
     // ?? #todo: this is not a x86 thing.
     gSystemEdition = 0;
 
-    //
-    // hypervisor
-    //
-
+//
+// Hypervisor
+//
     // ?? #todo: this is not a x86 thing.
 
     g_is_qemu = FALSE;
-
 
     //debug_print ("====\n");
     //debug_print ("x86main:\n");
     //printf      ("x86main:\n");
 
 //
-// ====================================================================
+// ================================================================
 //
 
     debug_print ("====\n");
@@ -510,20 +498,17 @@ int x86main (void)
 	// As mensagens do abort podem não funcionarem nesse caso.
 	// AINDA NÃO INICIALIZAMOS O RECURSO DE MENSAGENS.
 
-
-    if ( KeInitPhase != 0 )
-    {
+    if ( KeInitPhase != 0 ){
         KiAbort();
     }
 
-
-	// Obs: 
-	// O video já foi inicializado em main.c.
-	// Isso atualiza a estrutura de console do console atual.
+    // Obs: 
+    // O video já foi inicializado em main.c.
+    // Isso atualiza a estrutura de console do console atual.
     // #test: mudamos isso para o momento em que inicializamos os consoles.
-        
-	// BANNER !
-    //Welcome message. (Poderia ser um banner.) 
+
+    // BANNER !
+    // Welcome message. (Poderia ser um banner.) 
         
     //set_up_cursor (0,1);
 
@@ -531,10 +516,11 @@ int x86main (void)
     PROGRESS("Kernel:1:2\n"); 
     // Calling 'init' kernel module. 
 
-    debug_print ("x86main: Calling init()\n");
- 
     // See: 
     // core/init.c
+
+    debug_print ("x86main: Calling init()\n");
+ 
     Status = (int) init(); 
  
     if ( Status != 0 )
@@ -571,15 +557,12 @@ int x86main (void)
     while (1){ asm ("hlt"); }
 #endif
 
-
     printf("======================\n");
     printf("x86main: end of phase 2\n");
-
 
 //
 // == phase 3 ? ================================================
 //
-    
     KeInitPhase = 3; 
 
 
@@ -735,7 +718,6 @@ int x86main (void)
         // Or in the dispatcher?
 
         ____IDLE = (struct thread_d *) EarlyRING0IDLEThread;
-
 
         EarlyRING0IDLEThread->position = KING;
         

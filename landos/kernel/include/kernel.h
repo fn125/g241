@@ -211,7 +211,6 @@ extern unsigned long stack0_krn_ptr;
 #include "rtl/net/mac.h"
 
 
-
 // hal/dev/blkdev
 #include "hal/dev/blkdev/floppy.h"
 #include "hal/dev/blkdev/ata.h"

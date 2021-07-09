@@ -21,7 +21,7 @@
 
 
 
-// See: include/gpid.h
+// See: gpid.h
 int register_logoff_process ( pid_t pid ){
 
     if (pid<0 || pid >= PROCESS_COUNT_MAX ){

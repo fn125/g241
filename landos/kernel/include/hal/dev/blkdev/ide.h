@@ -122,8 +122,6 @@ struct ide_port_d  ide_ports[4];
 
 
 unsigned long ide_handler_address;
- 
-
 
 
 //estrutura para canais da controladora IDE. 

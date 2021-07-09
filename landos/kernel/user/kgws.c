@@ -11,19 +11,14 @@
 
 #include <kernel.h>
 
-
 static int EnableKGWS = TRUE;
-
 
 int kgws_status;
 int kgws_ws_PID;
 int kgws_ws_status;
 
 
-
-
-//==========================================================
-
+// ==========================================================
 
 void kgws_enable(void)
 {
@@ -43,7 +38,9 @@ void kgws_disable(void)
 {
     debug_print("kgws_disable: Disable KGWS\n");
          printf("kgws_disable: Disable KGWS\n");
+
     backgroundDraw(COLOR_RED);
+
     refresh_screen();
         
     // Using unix-like TTY mode for input.
@@ -1038,7 +1035,6 @@ done:
 // Registrar um window server.
 int kgwsRegisterWindowServer (int pid)
 {
-
     int Status = 0;
 
     // ?? Where ??
@@ -1054,10 +1050,8 @@ int kgwsRegisterWindowServer (int pid)
         goto done;
     };
 
-
 fail:
     printf("kgwsRegisterWindowServer: fail\n");
-
 done:
     return 0;
 }
@@ -1296,6 +1290,8 @@ int user_initialize(void)
     return Status;
 }
 */
+
+
 
 // called by x86/x86init.c
 // #todo

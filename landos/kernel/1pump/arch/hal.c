@@ -397,10 +397,7 @@ hal_lfb_putpixel (
 }
 
 
-
-
 /*
- *********************************************************
  * hal_hardware_detect:
  *     Detecta fabricantes específicos suportados pelo núcleo.
  *
@@ -415,8 +412,7 @@ hal_lfb_putpixel (
 
 // Consumer Chipsets (Z87, H87, H81) Haswell LGA1150. 
 // Business Chipsets (Q87, Q85, B85) Haswell LGA1150.
- 
- 
+
 int hal_hardware_detect (void)
 {
     debug_print ("hal_hardware_detect: [TODO]\n");
@@ -438,7 +434,6 @@ int hal_showpciinfo (void){
 
 
 /*
- ******************************************
  * init_cpu:
  *     Inicializa a estrutura do processador e as coisas associadas a ele.
  *     Inicializa apenas o que for independente da arquitetura.

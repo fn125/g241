@@ -72,8 +72,8 @@ int dispatch_Default (void);
 // if something goes wrong. So this way we can try another thing.
 // int dispatcher ( int type ){
 
-void dispatcher ( int type ){
-
+void dispatcher ( int type )
+{
     struct thread_d *dispatch_Pointer;
 
 

@@ -323,8 +323,8 @@ all-c:
 
 	## == HWI - Hardware Interface ======================= 
 	
-	$(CC) -c 2io/io.c      $(KINCLUDE) $(CFLAGS) -o io.o
-	$(CC) -c 2io/ws.c      $(KINCLUDE) $(CFLAGS) -o ws.o
+	$(CC) -c 2io/io.c  $(KINCLUDE) $(CFLAGS) -o io.o
+	$(CC) -c 2io/ws.c  $(KINCLUDE) $(CFLAGS) -o ws.o
 
 	# 2io/bus/pcibus
 	$(CC) -c 2io/bus/pcibus/pci.c       $(KINCLUDE) $(CFLAGS) -o pci.o

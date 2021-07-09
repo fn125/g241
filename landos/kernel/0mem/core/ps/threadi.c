@@ -1,7 +1,7 @@
 /*
  * File: ps/threadi.c 
  *
- *      Thread internal.    
+ *      Thread internal
  *
  *     'Ki_' é para rotinas com threads oferecidas
  *     pelo modulo interno dentro do kernel base.
@@ -36,7 +36,6 @@
  * rotina dofork() e outras se necessário.
  */
 
-
 int kfork (void){
 
     debug_print ("threadi-kfork: [TODO]\n");
@@ -70,10 +69,8 @@ int kfork (void){
 
 int KiFork (void)
 {
-
     // #todo 
     // Criar interface
-
     return (int) kfork();
 }
 
@@ -432,7 +429,6 @@ void threadi_power(
 
 
 /*
- ************************************************************
  * SetThreadDirectory:
  *     Altera o endereço do diretório de páginas de uma thread.
  *     Apenas a variável. Não altera o CR3.
@@ -556,7 +552,6 @@ void release ( int tid ){
 
 
 /*
- *****************************************************
  * kill_thread:
  *     Destrói uma thread.
  *     Destroi a estrutura e libera o espaço na lista.

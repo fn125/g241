@@ -150,8 +150,11 @@ int BAT_TEST (void);
 
 
 // #test
-// Loadng a file using a pathname as parameter.
+// Loading a file using a pathname as parameter.
 // vamos apenas carregar um arquivo qualquer.
+
+// #bugbug
+// Isso deveria estar em outro lugar ...
 
 void __load_path_test(void)
 {
@@ -795,8 +798,8 @@ unsigned long keyboardGetKeyState ( unsigned char key ){
 // são usadas em comjunto com outras teclas para criar atalhos.
 // modificam temporariamente a função de outra tecla.
 
-void ldisc_init_modifier_keys (void){
-	
+void ldisc_init_modifier_keys (void)
+{
 	// Modifier keys.
 	
 	shift_status = 0;
@@ -829,8 +832,8 @@ void ldisc_init_modifier_keys (void){
 // modificam permanentemente a função de outra tecla.
 //ativa as teclas extendidas.
 
-void ldisc_init_lock_keys (void){
-	
+void ldisc_init_lock_keys (void)
+{
     // Capital Lock.	
 	capslock_status = 0;
 	
@@ -841,16 +844,11 @@ void ldisc_init_lock_keys (void){
 	numlock_status = 0;	
 }
 
+// keyboardEnable:
+//     Enable keyboard.
 
-/*
- **********************************
- * keyboardEnable:
- *     Enable keyboard.
- */
-
-void keyboardEnable (void){
-
-
+void keyboardEnable (void)
+{
     // #bugbug
     // Dizem que isso pode travar o sistema.
 
@@ -866,11 +864,8 @@ void keyboardEnable (void){
 }
 
 
-/*
- * keyboardDisable:
- *     Disable keyboard.
- */
-
+// keyboardDisable:
+// Disable keyboard.
 // Wait for bit 1 of status reg to be zero.
 // Send code for setting disable command.
     
@@ -887,14 +882,13 @@ void keyboardDisable (void){
 
 
 /*
- ***************************************
  * keyboard_set_leds:
  *     Set keyboard flags.
  *     ED = Set led.
  */
 
-void keyboard_set_leds (char flag){
-
+void keyboard_set_leds (char flag)
+{
     //#todo: Filtro.
 
     // Wait for bit 1 of status reg to be zero.
@@ -1076,20 +1070,17 @@ int get_shift_status (void)
     return (int) shift_status;
 }
 
-
 // events.h
 void set_current_keyboard_responder ( int i )
 {
     current_keyboard_responder = i;
 }
 
-
 // events.h
 int get_current_keyboard_responder (void)
 {
     return (int) current_keyboard_responder;
 }
-
 
 
 //

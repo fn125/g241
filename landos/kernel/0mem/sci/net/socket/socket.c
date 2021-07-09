@@ -685,7 +685,6 @@ socket_unix (
         return (int) __slot;
     };
 
-
 fail:
     debug_print ("socket_unix: fail\n");
     refresh_screen();
@@ -698,6 +697,7 @@ fail:
 int socket_raw( ...);
 int socket_raw( ...){}
 */
+
 
 // Configura a estrutura de socket para um socket da
 // família AF_INET.
@@ -1551,7 +1551,6 @@ socket_dialog (
 // mas estará ouvindo a apenas um por vez. Ou precisaremos 
 // de instâncias.
 
-
 // #todo
 // O socket do cliente precisa ter um fd no processo servidor.
 
@@ -2206,9 +2205,7 @@ sys_accept2 (
 /*
  ******************************** 
  * sys_accept: 
- * 
  *     This is a work in progress.
- * 
  */
 
 // #todo
@@ -2219,7 +2216,6 @@ sys_accept2 (
      // #todo
      // We need to create a new socket. Only this way the process
      // will have a new file in p->Objects[].
-
 
 int 
 sys_accept (
@@ -2947,11 +2943,9 @@ int sys_listen (int sockfd, int backlog)
     debug_print ("sys_listen: [TODO] continue...\n");
     printf      ("sys_listen: [TODO] continue...\n");
 
-
 //
 // ==============================================
 //
-
 
 fail:
     debug_print ("sys_listen: [FAIL]\n");

@@ -58,20 +58,14 @@ int pci_setup_devices (void)
     register int funcCount=0;
 
 
-
-	// #debug
-	
-	//serial debug
     debug_print (">>>> pci_setup_devices:\n");
-
     kprintf ("pci_setup_devices:\n");
     //kprintf ("Detecting PCI Devices..\n");
 
-
-    // Bus.
+    // Bus
     for ( i=0; i < PCI_MAX_BUSES; i++ )
     {
-        // Device.
+        // Device
         for ( j=0; j < PCI_MAX_DEVICES; j++ )
         {
              // Valid device ?

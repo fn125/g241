@@ -132,7 +132,7 @@ int KiRequest (void)
  * de request.
  *   Um request será atendido somente quando o timeout zerar. (defered)
  */
- 
+
 int request (void){
 
     // Targets
@@ -350,7 +350,6 @@ int request (void){
 
 
 /*
- *******************************************************
  * create_request:
  *     Cria o request, que será atendido depois.
  *     Isso eh chamado no serviço 70, por exemplo.
@@ -411,16 +410,12 @@ create_request (
     REQUEST.long5 = 0;
     REQUEST.long6 = 0;
 
-
-    //Ok.
     return 0;
 }
 
 
-
 void clear_request (void)
 {
-
     REQUEST.kernel_request = 0;
     REQUEST.status     = 0;
     REQUEST.timeout    = 0;

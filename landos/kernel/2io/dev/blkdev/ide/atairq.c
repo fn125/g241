@@ -92,15 +92,15 @@ void disk_reset_ata_irq_invoked (void)
 // Veja se é possível mudar o retorno para 'int'.
 // #obs: Tem uma função semelhante logo abaixo.
 
-unsigned char ata_wait_irq (void){
-
+unsigned char ata_wait_irq (void)
+{
     unsigned long tmp = 0x10000;
     unsigned char data;
 
 
     while (!ata_irq_invoked)
     {
-        data = ata_status_read ();
+        data = ata_status_read();
 
         if ( (data & ATA_SR_ERR) )
         {
@@ -143,8 +143,8 @@ unsigned char ata_wait_irq (void){
 //     -1   = ok por status do controlador.
 //     0x80 = ok por tempo esperado.
 
-int disk_ata_wait_irq (void){
-
+int disk_ata_wait_irq (void)
+{
     unsigned long tmp = 0x10000;
     unsigned char data;
 
@@ -176,11 +176,9 @@ int disk_ata_wait_irq (void){
         };
     };
 
-
-    //ok por status da interrupção.
+// ok por status da interrupção.
 
     ata_irq_invoked = 0;
-
 
     return 0;
 }

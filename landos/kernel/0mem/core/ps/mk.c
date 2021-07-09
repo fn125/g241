@@ -27,15 +27,12 @@ int jobcontrol ( int type, int id, int plane ){
     struct process_d  *p;
     struct thread_d   *t;
 
-
     switch (type){
-
-        case PROCESS: goto do_process; break;
-        case THREAD:  goto do_thread;  break;
-
-        default:
-           goto fail;
-           break;
+    case PROCESS: goto do_process; break;
+    case THREAD:  goto do_thread;  break;
+    default:
+       goto fail;
+       break;
     };
 
     goto fail;
@@ -45,8 +42,7 @@ do_process:
     if ( id <0 || id >= PROCESS_COUNT_MAX )
     {
         goto fail;
-     
-     }else{
+    }else{
 
         p = (struct process_d*) processList[id];
 
@@ -100,12 +96,11 @@ fail:
     return (int) -1;
 done:
     return (int) 0;	
-};
+}
 
 
-
-//se o processo ou thread estiver em background o retorno será -1
-//indicando que ele não pode pegar input de teclado.
+// Se o processo ou thread estiver em background o retorno será -1
+// indicando que ele não pode pegar input de teclado.
 int jobcheck ( int type, int id ){
 	
 	struct process_d *p;
@@ -220,14 +215,11 @@ int init_microkernel (void){
 
     int Status = 0;
 
-
     debug_print("init_microkernel:\n");
 
-
-#ifdef KERNEL_VERBOSE	
+#ifdef KERNEL_VERBOSE
     printf ("MICROKERNEL:\n");
 #endif
-
 
     // Init scheduler.
     // See: sched/sched.c
@@ -247,8 +239,10 @@ int init_microkernel (void){
     ipc_init ();
     create_semaphore(); 
 
+//
+// queue
+//
 
-    // Queue.
     // Inicializar as filas que alimentar�o a lista do dispatcher.
 
     queue = kmalloc ( sizeof( struct queue_d ) );
@@ -269,9 +263,9 @@ int init_microkernel (void){
 
     // ...
 
-	//
-	// Dispatch Count Block.
-	//
+//
+// Dispatch Count Block
+//
 
     DispatchCountBlock = (void *) kmalloc ( sizeof( struct dispatch_count_d ) );
 

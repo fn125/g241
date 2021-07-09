@@ -1,11 +1,8 @@
 /*
  * File: io.c
- *
  *     i/o manager.
- * 
  *    2016 - Created by Fred Nora.
  */
-
 
 #include <kernel.h> 
 

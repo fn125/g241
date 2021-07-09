@@ -13,6 +13,7 @@
 #include <kernel.h>
 
 
+// #delete
 extern void set_page_dir (void);
 
 
@@ -78,7 +79,6 @@ unsigned long contextEBP;
 
 
 /*
- **************************************
  * save_current_context: 
  * 
  *    Salvando o contexto da thread interrompida pelo timer IRQ0.
@@ -91,7 +91,6 @@ unsigned long contextEBP;
  * debug e float point por exemplo.
  *     Mudar nome para contextSaveCurrent();.
  */
-
 
 void save_current_context (void){
 
@@ -175,7 +174,6 @@ fail0:
 
 
 /*
- ****************************************************
  * restore_current_context: 
  *     Carregando o contexto da pr�xima thread a ser executada.
  *     Pegando os valores na estrutura e colocando nas vari�veis 

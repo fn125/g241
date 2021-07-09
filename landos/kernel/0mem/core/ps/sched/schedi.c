@@ -105,7 +105,6 @@ int do_waitpid (pid_t pid, int *status, int options){
 
 
 /*
- ********************************************
  * wait_for_a_reason:
  *     Faz a thread esperar  por um motivo.
  */
@@ -150,7 +149,7 @@ void wait_for_a_reason ( int tid, int reason ){
 			//
 			// ## Wait ##
 			//
-			
+
 			t->state =  WAITING;
         }
     };
@@ -492,6 +491,7 @@ int KiGetCurrentTask (void)
  *     Obtendo o TID da thread atual. 
  */
 
+// #todo: get current thread
 int get_current (void)
 {
     return (int) current_thread;
@@ -503,6 +503,8 @@ int get_current (void)
  *     Pega o id da thread atual.
  *    @todo: Criar scheduleriGetCurrentTID();
  */
+
+// #todo: get current thread
 
 int get_current_task (void)
 {
@@ -620,7 +622,6 @@ void do_thread_zombie (int tid){
     };
 }
 
-
 //3
 void do_thread_dead (int tid){
 
@@ -732,7 +733,6 @@ void do_thread_waiting (int tid)
 void do_thread_blocked (int tid){
 
     struct thread_d *t; 
-
 
     // tid
     if (tid < 0 || tid >= THREAD_COUNT_MAX){
@@ -926,7 +926,6 @@ int SelectNextThread (int current)
 
 
 /*
- *****************************************
  * check_for_standby:
  *
  * Check for a thread in standby.

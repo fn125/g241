@@ -127,28 +127,23 @@ int hdd_ata_wait_not_busy (int p)
 }
 
 
-void hdd_ata_cmd_write ( int port, int cmd_val ){
-
+void hdd_ata_cmd_write ( int port, int cmd_val )
+{
     if (port<0)
         panic("hdd_ata_status_read: port");
-
 
     // no_busy 
     hdd_ata_wait_not_busy (port);
 
-
-	//outb(ata.cmd_block_base_address + ATA_REG_CMD,cmd_val);
-
+    //outb(ata.cmd_block_base_address + ATA_REG_CMD,cmd_val);
     out8 ( (int) ide_ports[port].base_port + 7 , (int) cmd_val );
 
-
-	// Esperamos 400ns
     ata_wait (400);  
 }
 
 
-int hdd_ata_wait_no_drq (int p){
-
+int hdd_ata_wait_no_drq (int p)
+{
     while ( hdd_ata_status_read(p) & ATA_SR_DRQ){
         if (hdd_ata_status_read(p) & ATA_SR_ERR)
             return 1;
@@ -270,13 +265,10 @@ pio_rw_sector (
         tmplba = tmplba | 0x000000F0;
     }
 
-
     out8 ( (int) ide_ports[port].base_port + 6 , (int) tmplba );
-
 
 	// 0x01F2 ; Port to send, number of sectors
     out8 ( (int) ide_ports[port].base_port + 2 , (int) 1 );
-
 
 	// 0x1F3  ; Port to send, bit 0 - 7 of LBA
     tmplba = lba;
@@ -377,7 +369,6 @@ again:
             //die();
             break; 
     };
-
 
     return 0;
 }
@@ -508,7 +499,6 @@ int init_hdd (void)
 
 	// #todo: 
 	// We need to do something here.
-
 
     g_driver_hdd_initialized = (int) TRUE;
     return 0;

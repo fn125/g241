@@ -82,7 +82,6 @@ void save_kernel_args (void)
 
 void init_globals (void){
 
-
     int i=0;
 
 
@@ -277,13 +276,12 @@ void init_globals (void){
     //refresh_screen(); 
     //while(1){}
 
-	//
-	// Keyboard support.
-	//
+//
+// Keyboard support
+//
 	
 	//ldisc_init_modifier_keys();
-	//ldisc_init_lock_keys();	
-
+	//ldisc_init_lock_keys();
 
     //Continua ...
 }
@@ -346,11 +344,11 @@ int init (void){
     PROGRESS("Kernel:2:3\n"); 
     // io manager
 
-	//#bugbug:
-	//Depois de iniciar as globais, provavelmente o cursor mude 
-	//para o início da tela.
-	//então após iniciarmos as globais temos que repintar o background e 
-	// fazer um refresh da tela se a flag de verbose estiver ligada.
+	// #bugbug:
+	// Depois de iniciar as globais, provavelmente o cursor mude 
+	// para o início da tela.
+	// Então após iniciarmos as globais temos que repintar o background 
+	// e fazer um refresh da tela se a flag de verbose estiver ligada.
 
     //Object manager.
 #ifdef EXECVE_VERBOSE
@@ -377,15 +375,16 @@ int init (void){
     // Inicializa a lista de dispositivos.
     debug_print ("core-init: device manager\n");
     
-    init_device_manager ();
+    init_device_manager();
 
 
 // =================================
     PROGRESS("Kernel:2:5\n"); 
     // storage manager
 
-
-    // == STORAGE ===========================
+//
+// == storage ===========================
+//
 
     // #ordem:
     // +storage
@@ -396,14 +395,14 @@ int init (void){
 	//#importante 
 	//A estrutura 'storage' vai ser o nível mais baixo.
 	//É nela que as outras partes devem se basear.
+
     debug_print ("core-init: storage structure\n");
-    
+
     storage = (void *) kmalloc ( sizeof(struct storage_d) );
 
     if ( (void *) storage == NULL ){
        panic ("core-init: storage");
     }
-
 
 #ifdef EXECVE_VERBOSE
     printk ("core-init: disk_init\n");
@@ -464,6 +463,11 @@ int init (void){
 #ifdef EXECVE_VERBOSE
     printk ("core-init: Platform\n");
 #endif
+
+
+//
+// Platform
+//
 
     // #important
     // This is the Root struct. :)
@@ -529,7 +533,7 @@ int init (void){
     // We need to be in the phase 0.
     
     if (KeInitPhase != 0){
-        panic ("init: KeInitPhase\n");
+        panic ("core-init: KeInitPhase\n");
     }
 
 
@@ -544,7 +548,7 @@ int init (void){
 
 //#todo: Mudar o nome EXECVE_VERBOSE
 #ifdef EXECVE_VERBOSE
-    printk ("init: Initializing HAL..\n");
+    printk ("core-init: Initializing HAL..\n");
 #endif
 
     // #bugbug
@@ -553,7 +557,7 @@ int init (void){
     Status = init_hal();
 
     if (Status != 0){
-        panic ("init: init_hal fail\n");
+        panic ("core-init: init_hal fail\n");
     }
 
 
@@ -570,7 +574,7 @@ int init (void){
 	//entre processos.
 	//#bugbug @todo: Se é microkernel é processo é registrador ... 
 	// acho que leva em consideração a arquitetura.
-    printk ("init_architecture_independent: Initializing Microkernel..\n");
+    printk ("core-init: Initializing Microkernel..\n");
 #endif
 
     // Isso tambem eh dependente, pode ir para a outra rotina, 
@@ -578,7 +582,7 @@ int init (void){
     Status = init_microkernel();
 
     if (Status != 0){
-        panic ("init_architecture_independent: init_microkernel fail\n");
+        panic ("core-init: init_microkernel fail\n");
     }
 
 
@@ -589,13 +593,13 @@ int init (void){
     // =====================
     // Executive:
 #ifdef EXECVE_VERBOSE
-    printk ("init_architecture_independent: Initializing Executive..\n");
+    printk ("core-init: Initializing Executive..\n");
 #endif
 
     Status = init_executive();
 
     if (Status != 0){
-        panic ("init_architecture_independent: init_executive\n"); 
+        panic ("core-init: init_executive\n"); 
     }
 
 
@@ -607,7 +611,7 @@ int init (void){
     // =====================
     // Gramado:
 #ifdef EXECVE_VERBOSE
-    printk ("init_architecture_independent: Initializing Gramado..\n");
+    printk ("core-init: Initializing Gramado..\n");
 #endif
 
     // #bugbug
@@ -617,7 +621,7 @@ int init (void){
     Status = init_gramado();
 
     if (Status != 0){
-        panic ("init_architecture_independent: init_gramado fail\n"); 
+        panic ("core-init: init_gramado fail\n"); 
     }
 
 
@@ -635,12 +639,12 @@ int init (void){
     // Text mode not supported.
 
     if (g_useGUI != TRUE){
-        panic ("init_architecture_independent: [PANIC] No ring0 GUI!\n");
+        panic ("core-init: [PANIC] No ring0 GUI!\n");
     }
 
 
 #ifdef EXECVE_VERBOSE
-    printk ("init_architecture_independent: init_window_manager\n");
+    printk ("core-init: init_window_manager\n");
 #endif
 
     // debug
@@ -662,7 +666,7 @@ int init (void){
 //done:
 
 #ifdef EXECVE_VERBOSE
-    printk ("init_architecture_independent: Done\n");
+    printk ("core-init: Done\n");
     //refresh_screen();
     //while(1){}
 #endif
@@ -709,7 +713,7 @@ int init (void){
     //
 
     if ( KeInitPhase != 1 ){
-        panic ("init: KeInitPhase\n");
+        panic ("core-init: KeInitPhase\n");
     }
 
 
@@ -744,7 +748,7 @@ int init (void){
     processor = (void *) kmalloc ( sizeof( struct processor_d ) ); 
 
     if ( (void *) processor == NULL ){
-        panic("init: processor\n");
+        panic("core-init: processor\n");
     }
 
     // #todo
@@ -770,7 +774,7 @@ int init (void){
 
     // Error
     if (ProcessorType <= 0){
-        panic("init_architecture_dependent: [ERROR] ProcessorType\n");
+        panic("core-init: [ERROR] ProcessorType\n");
     }
 
     processor->Type = (int) ProcessorType;
@@ -780,7 +784,7 @@ int init (void){
         case Processor_AMD:    init_amd();         break;
         // ...
         default:
-            panic ("init_architecture_dependent: [ERROR] default Type\n");
+            panic ("core-init: [ERROR] default Type\n");
             break;
     };
 
@@ -801,8 +805,8 @@ int init (void){
     PROGRESS("Kernel:2:14\n"); 
     // process manager.
 
-	// #obs: O contexto é depedente.
-	// Inicializando o Process manager.
+    // #obs: O contexto é depedente.
+    // Inicializando o Process manager.
 
     init_process_manager();
 

@@ -1,7 +1,6 @@
 // * credits: NetBSD
 
 
-
 #ifndef ____X86GDT_H
 #define ____X86GDT_H
 
@@ -23,11 +22,8 @@
 #define GTSS_SEL	5   //tss
 #define GLDT_SEL	6   /* Default LDT descriptor */
 
-
-
-
-#define SEL_KPL	0	/* kernel privilege level */
-#define SEL_UPL	3	/* user privilege level */
+#define SEL_KPL  0	/* kernel privilege level */
+#define SEL_UPL  3	/* user privilege level */
 
 /* system segments and gate types */
 #define SDT_SYSNULL	 0	/* system null */
@@ -66,8 +62,6 @@
 #define SDT_MEMERAC	31	/* memory execute read accessed conforming */
 
 
-
-
 #define GSEL(s,r) (((s) << 3) | r)
 
 
@@ -77,6 +71,9 @@
  * NetBSD style.
  * #obs: Podemos fazer listas de segmentos que formem gdts.
  */
+
+// See:
+// https://wiki.osdev.org/Global_Descriptor_Table
 
 struct segment_descriptor_d {
 
@@ -207,8 +204,9 @@ struct gdt_ptr_d xxx_gdt_ptr;
 //
 
 
-#define load_gdt(dtr) native_load_gdt(dtr)
-#define store_gdt(dtr) native_store_gdt(dtr)
+#define load_gdt(dtr)   native_load_gdt(dtr)
+#define store_gdt(dtr)  native_store_gdt(dtr)
+
 
 static inline void native_load_gdt ( struct gdt_ptr_d *dtr)
 {

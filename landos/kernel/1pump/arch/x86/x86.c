@@ -305,7 +305,7 @@ setsegment (
 
 // Set segment nr.
 // Probably stolen from minix or netbsd.
-// See: sysio/hal/arch/x86/x86gdt.h
+// See: x86gdt.h
 
 void
 setsegmentNR ( 
@@ -317,6 +317,9 @@ setsegmentNR (
     int def32, 
     int gran )
 {
+
+    // #bugbug
+    // Check limits.
 
     setsegment ( 
         (struct segment_descriptor_d *) &xxx_gdt[number], 
@@ -331,8 +334,7 @@ setsegmentNR (
 
 /*
  ***********************************
- * init_gdt:
- * 
+ * x86_init_gdt:
  *     It creates a TSS and sets up some entries in the GDT.
  *     See: x86gdt.h
  */
@@ -374,10 +376,9 @@ int x86_init_gdt (void)
     };
 
 
-	//
-	// Initializing the GDT.
-	//
-
+//
+// Initializing the GDT.
+//
 
     // NULL
     setsegment ( &xxx_gdt[GNULL_SEL], 0, 0, 0, 0, 0, 0 );
@@ -456,12 +457,9 @@ tss_init (
 	
 	//KASSERT(curcpu()->ci_pmap == pmap_kernel());
 
-
     if ( (void *) tss == NULL ){
         panic ("[x86] tss_init:\n");
     }
-
-
 
     // Clean.
     memset ( tss, 0, sizeof *tss );

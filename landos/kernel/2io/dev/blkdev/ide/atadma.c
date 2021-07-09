@@ -92,7 +92,6 @@ static inline void ata_set_device_and_sector ( unsigned long count, unsigned lon
 
 
 
-
 /*
  ****************************************
  * ide_dma_data:
@@ -150,11 +149,9 @@ ide_dma_data (
 }
 
 
-/*
- *****************************************
- * ide_dma_start:
- *     2018 - Created by Nelson Cole. 
- */
+
+// ide_dma_start:
+//     2018 - Created by Nelson Cole. 
 
 void ide_dma_start (void)
 {
@@ -164,14 +161,11 @@ void ide_dma_start (void)
 }
 
 
-/*
- **********************************
- * ide_dma_stop:
- *     2018 - Created by Nelson Cole. 
- */
+// ide_dma_stop:
+//     2018 - Created by Nelson Cole. 
 
-void ide_dma_stop (void){
-
+void ide_dma_stop (void)
+{
     unsigned char data = in8 ( ata.bus_master_base_address + ide_dma_reg_cmd ); 
 
     out8 ( ata.bus_master_base_address + ide_dma_reg_cmd, data &~1);
@@ -183,7 +177,6 @@ void ide_dma_stop (void){
 
 
 /*
- ***************************************
  * ide_dma_read_status:
  *     DMA read status.
  *     2018 - Created by Nelson Cole.  

@@ -793,43 +793,17 @@ done:
 
 void systemShutdown (void)
 {
-    printf ("systemShutdown: It's safe to turnoff your computer");
-
+    printf ("systemShutdown: It's safe to turnoff your computer\n");
     refresh_screen ();
     die ();
 }
 
 
-/*
- * systemShutdownViaAPM:
- *     Desliga a máquina via APM.
- *     (Deve chamar uma rotina herdada do BM).
- */
-
-void systemShutdownViaAPM (void){
-
-    // Obs: @todo:
-	//     Existe uma rotina no BM que desliga a máquina via APM usando 
-	// recursos do BIOS. A rotina começa em 32bit, assim podemos tentar herdar 
-	// o ponteiro para a função.
-	
-    //Chamar a função de 32 bit herdado do BM.
-    //todo: usar iret.
-	
-	// Check limits.
-	// O ponteiro herdado tem que ser um valor dentro do endereço onde 
-	// roda o BM, que começa em 0x8000.
-	// if(shutdown_address > 0x8000 && shutdown_address < 0x20000 ){
-		
-	//Pilha para iret.
-    //asm("pushl %0" :: "r" ((unsigned long) 8)     : "%esp");    //cs.
-    //asm("pushl %0" :: "r" ((unsigned long) shutdown_address)    : "%esp");  //eip.
-	//asm("iret \n");    //Fly!	
-		
-	//};
-
-
-    panic ("systemShutdownViaAPM:\n");
+// ??
+// APM is a 16bit real mode thing.
+void systemShutdownViaAPM (void)
+{
+    panic ("systemShutdownViaAPM: [FAIL]\n");
 }
 
 
@@ -1494,12 +1468,10 @@ void Removing_from_the_beginning (struct linkedlist_d *list){
         return;
     }
 
-
     old_head = list->head;
     new_head = old_head->flink;
 
     list->head = new_head; 
-
 
 done:
     return;
@@ -1560,7 +1532,7 @@ int init_executive (void){
 
 	// CLOCK - Pega informações de Hora e Data.
     init_clock ();
-    get_cmos_info ();
+    get_cmos_info ();  //#bugbug: Redundante, pois isso é chamado pela rotina acima.
 
 	//...
 

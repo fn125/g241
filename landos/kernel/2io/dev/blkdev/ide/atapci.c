@@ -87,8 +87,8 @@ diskWritePCIConfigAddr (
  *      -1 = error (#bugbug, pois o tipo de retorno eh unsigned int)
  */
 
-uint32_t diskPCIScanDevice ( int class ){
-
+uint32_t diskPCIScanDevice ( int class )
+{
     int bus=0;
     int dev=0;
     int fun=0;
@@ -421,14 +421,12 @@ int diskATAPCIConfigurationSpace ( struct pci_device_d *D )
         D->irq_line, D->irq_pin );
 #endif
 
-    //
-    // == DMA =================================================
-    //
-    
+
+//
+// == DMA ===========================================
+//
     data = diskReadPCIConfigAddr ( D->bus, D->dev, D->func, 0x48);
     kprintf ("[ Synchronous DMA Control Register %x ]\n", data );
-
-
 
 //
 // Done.

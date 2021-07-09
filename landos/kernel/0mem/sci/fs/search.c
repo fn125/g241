@@ -229,7 +229,6 @@ int search_in_root ( const char *file_name )
 
 
 /*
- **********************************************************************
  * fsSearchFile:
  *    Procura por um arquivo no diretório raiz de uma partição.
  *    Com o diretório raiz já carregado na memória.
@@ -263,7 +262,6 @@ int fsSearchFile (const char *file_name)
 
 
 /*
- *****************************************************
  * fs_find_empty_entry:
  *     Encontrar uma entrada vazia na fat.
  *     @todo: Isso pe importante:
@@ -281,10 +279,8 @@ unsigned short fs_find_empty_entry ( char *fat_address )
 
 
 /*
- **************************************************************
  * findEmptyDirectoryEntry:
  * Procura uma entrada vazia no diretório 
- *
  * IN:
  *     Endereço do diretório e número máximo de entradas.
  */
@@ -322,9 +318,7 @@ fail:
 // OUT: index.
 int search_path_in_the_inode_table( const char *path )
 {
-
     struct inode_d *tmp_inode;
-    
     int i=0;
     size_t PathSize = 0;
     int Status = -1;
@@ -364,10 +358,7 @@ int search_path_in_the_inode_table( const char *path )
     return -1;
 }
 
-
-
 /*
- ***************************************************************
  * fs_find_n_empty_entries:
  *     Encontrar uma quantidade específica de entradas na fat.
  *     Pois um arquivo demanda uma ou várias entradas, 
@@ -383,6 +374,11 @@ int search_path_in_the_inode_table( const char *path )
 
 unsigned short fs_find_n_empty_entries ( int n )
 {
+
+    //
+    // #fixme
+    //
+
     int i = 0;
     int l = 0;
     unsigned short empty = 0;

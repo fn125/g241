@@ -79,6 +79,7 @@ struct i386tss_d
 //Assim todas as threads podem fazer referência à mesma
 //tss depois de inicializada.
 struct i386tss_d *current_tss;
+//struct i386tss_d *CurrentTSS;   //#todo: Use this one.
 
 
 /*

@@ -280,7 +280,6 @@ unsigned long get_new_frame (void){
 
 
 /*
- *********************************** 
  * clone_directory:
  *     Clone a given page directory.
  * 
@@ -341,7 +340,6 @@ void *clone_directory ( unsigned long directory_va ){
 
 
 /*
- **************************************************
  * CloneKernelPageDirectory:
  *
  *    Clone the kernel page diretory.
@@ -976,6 +974,8 @@ int mmSetUpPaging (void)
     //
 
     // 0x0009C000 = Kernel page directory
+    // é um endereço virtual.
+    // isso porque endereço físico e virtual são iguais abaixo de 1 mb.
     gKernelPageDirectoryAddress = XXXKERNEL_PAGEDIRECTORY;    
 
     unsigned long *page_directory = (unsigned long *) gKernelPageDirectoryAddress; 
@@ -1977,25 +1977,26 @@ virtual_to_physical (
 {
 
     if (dir_va == 0){
-        panic ("virtual_to_physical: invalid dir_va\b");
+        panic ("virtual_to_physical: [FAIL] Invalid dir_va \n");
     }
-
-    // Directory
-    unsigned long *dir = (unsigned long *) dir_va;
 
     unsigned long tmp=0;
     unsigned long address=0;
     
-    unsigned int d = (unsigned int) virtual_address >> 22 & 0x3FF;
-    unsigned int t = (unsigned int) virtual_address >> 12 & 0x3FF;
-    unsigned int o = (unsigned int) (virtual_address & 0xFFF);
+    unsigned int d = (unsigned int) virtual_address >> 22 & 0x3FF;    // 10 bits
+    unsigned int t = (unsigned int) virtual_address >> 12 & 0x3FF;    // 10 bits
+    unsigned int o = (unsigned int) (virtual_address      & 0xFFF );  // 12 bits
 
 
+// ============================
+// Page directory.
+    unsigned long *dir = (unsigned long *) dir_va;
 
     // Temos o endereço da pt junto com as flags.
     tmp = (unsigned long) dir[d];
 
-    // Page table.
+// ==============================
+// Page table.
     unsigned long *pt = (unsigned long *) (tmp & 0xFFFFF000);
 
     // Encontramos o endereço base do page frame.

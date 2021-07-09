@@ -1035,8 +1035,9 @@ int create_taskbar_client(int fd)
 
         // ================================
         // button0
-        button0_window = gws_create_window (fd,
-                              WT_BUTTON,1,1,"Start",
+        button0_window = gws_create_window (
+                              fd,
+                              WT_BUTTON,1,1,".Gramado",
                               2, 2, 
                               80, 28,
                               c_taskbar->window, 0,COLOR_GRAY, COLOR_GRAY);

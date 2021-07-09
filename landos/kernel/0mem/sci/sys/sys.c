@@ -277,14 +277,13 @@ unsigned long sys_get_system_metrics ( int n )
  */
 
 // service 377.
-int sys_uname (struct utsname *ubuf){
-
+int sys_uname (struct utsname *ubuf)
+{
 
     if ( (void *) ubuf == NULL ){
         //#todo: message.
         return -1;
     }
-
 
     memcpy ( (void *)  ubuf->sysname, 
         (const void *) OS_NAME, 
@@ -316,7 +315,6 @@ int sys_uname (struct utsname *ubuf){
 // See: sm/debug/debug.c
 int sys_serial_debug_printk ( char *s )
 {
-    
     //#todo
     //if ( (void *) s == NULL )
         //return -1;
@@ -575,7 +573,6 @@ int sys_sleep_if_socket_is_empty ( int fd )
     debug_print ("sys_sleep_if_socket_is_empty: [FAIL] Unexpected error \n");
     return -1;
 }
-
 
 
 
@@ -880,7 +877,7 @@ fail:
 
 
 /*
- * file_write: 
+ * file_write_buffer: 
  *     Escreve no arquivo uma certa quantidade de caracteres de uma 
  *     dada string.
  */
@@ -2208,8 +2205,8 @@ int sys_getpid (void)
 
 // 81
 // Get the PID of the father.
-int sys_getppid (void){
-
+int sys_getppid (void)
+{
     struct process_d *p;
     pid_t pid = -1;
 
@@ -2255,8 +2252,8 @@ int sys_fork (void)
 //exit process.
 //serviço do sistema.
 
-void sys_exit_process ( int pid, int code ){
-
+void sys_exit_process ( int pid, int code )
+{
     if ( pid < 0 ){
         //todo: message
         return;
@@ -2277,7 +2274,6 @@ void sys_exit_process ( int pid, int code ){
     // 72 - Create thread.
     // #todo: 
     // Enviar os argumentos via buffer.
-
 
 void *sys_create_thread ( 
     struct room_d     *room,
@@ -2319,9 +2315,9 @@ void *sys_create_thread (
 
 
 
-//exit thread.
-void sys_exit_thread (int tid){
-
+// Exit thread.
+void sys_exit_thread (int tid)
+{
     if ( tid < 0 ){
         //todo: message
         return;
@@ -2375,7 +2371,7 @@ int sys_showpciinfo (void)
     return (int) hal_showpciinfo ();
 }
 
- 
+
 /*
  ************************************
  * sys_reboot:
@@ -2431,8 +2427,8 @@ void sys_shutdown (void)
 
 
 // 178
-unsigned long sys_get_file_size ( char *path ){
-
+unsigned long sys_get_file_size ( char *path )
+{
     unsigned long Size=0;
 
 

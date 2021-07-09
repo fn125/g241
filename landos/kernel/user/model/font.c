@@ -57,7 +57,7 @@ int gwsInstallFont ( char *file_name ){
 
     unsigned long fileret=0;
 
-	// #todo: 
+	// #todo #bugbug
 	// Rever esse tamanho.
 
     unsigned long tmp_size = (8*4096);

@@ -685,7 +685,6 @@ uint32_t  dev_next_pid = 0;  // O próximo ID de unidade disponível.
 
 
 /*
- ********************************************************
  * ide_mass_storage_initialize:
  *     Rotina de inicialização de dispositivo de armazenamento de dados.
  */
@@ -1081,12 +1080,10 @@ static inline void dev_switch (void)
 
 static inline int getpid_dev (void)
 {
-
     if ( (void *) current_dev == NULL )
     {
         return -1;
     }
-
 
     return current_dev->dev_id;
 }
@@ -1102,7 +1099,6 @@ static inline int getnport_dev (void)
     if ( (void *) current_dev == NULL )
         return -1;
 
-
     return current_dev->dev_nport;
 }
 
@@ -1113,9 +1109,7 @@ static inline int getnport_dev (void)
 
 int nport_ajuste ( char nport )
 {
-
     char i = 0;
-
 
     // #todo
     // Simplify this thing.
@@ -1132,12 +1126,10 @@ int nport_ajuste ( char nport )
         i++;
     };
 
-
     if ( getnport_dev() == -1 )
     { 
         return (int) 1; 
     }
-
 
     return 0;
 }

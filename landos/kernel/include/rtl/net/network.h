@@ -6,19 +6,15 @@
  *      2019 - Created by Fred Nora.
  */
 
-
 #ifndef ____NETWORK_H
 #define ____NETWORK_H
-
 
 
 // >> The register at offset 0x00 is the "IOADDR" window. 
 // >> The register at offset 0x04 is the "IODATA" window. 
 
-
 // packet format
 // Ethernet IPv4 TCP/UDP DATA FCS
-
 
 // See: 
 // https://en.wikipedia.org/wiki/EtherType
@@ -27,8 +23,6 @@
 #define ETH_TYPE_ARP   0x0806
 #define ETH_TYPE_IPV6  0x86DD
 // ...
-
-
 
 
 // little endian ?
@@ -63,7 +57,6 @@ struct network_device_d
 
 
 
-
 struct network_buffer_d
 {
     int receive_tail;
@@ -82,12 +75,10 @@ struct network_buffer_d
     // O status de cada buffer, se ele está vazio ou não.
     int send_status[8];
 
-
     int initialized;
 };
-struct network_buffer_d NETWORK_BUFFER;
 
-
+struct network_buffer_d  NETWORK_BUFFER;
 
 
 
@@ -98,10 +89,9 @@ struct network_buffer_d NETWORK_BUFFER;
 
 struct network_info_d
 {
-    int id;
-
     int used;
     int magic;
+    int id;
 
     int networkIdentifier;  // Número identificador da rede.
     char *networkName;      // Nome da rede.
@@ -126,9 +116,8 @@ struct network_info_d
 int ____network_late_flag;
 
 
-
 //
-// Prototypes.
+// == Prototypes ====================
 //
 
 

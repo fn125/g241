@@ -87,18 +87,15 @@ tty_write_from_of ( unsigned int fd,
 
 struct tty_d *tty_create(void){
 
-    struct tty_d *__tty;
-
-    // name
-    char __tmpname[64];
-    
+    struct tty_d  *__tty;
     file *__file;
+    char __tmpname[64];
 
 
     debug_print ("tty_create: [FIXME] \n");
 
 
-    __tty = (struct tty_d *) kmalloc ( sizeof(struct tty_d) );
+    __tty = (struct tty_d *) kmalloc( sizeof(struct tty_d) );
     
     if ( (void *) __tty == NULL ){
         panic ("tty_create: __tty kmalloc fail \n");   
@@ -106,11 +103,10 @@ struct tty_d *tty_create(void){
     }else{
         __tty->objectType  = ObjectTypeTTY;
         __tty->objectClass = ObjectClassKernelObjects;
-        
-        //__tty->index = ?;
-        
         __tty->used  = TRUE;
         __tty->magic = 1234;
+
+        //__tty->index = ?;
 
         // No thread for now.
         // ?? What thread we need to use here?
@@ -144,11 +140,10 @@ struct tty_d *tty_create(void){
 
         __tty->driver = NULL;  //driver struct
         __tty->ldisc  = NULL;  //line discipline struct
-        
-        //termios struct (not a pointer)
+
+        // termios struct (not a pointer)
         tty_reset_termios(__tty);
-        
-        
+
         // process group.
         __tty->gid = current_group;
 
@@ -156,12 +151,10 @@ struct tty_d *tty_create(void){
         // Quantos processos estao usando essa tty.
         __tty->pid_count=0;
 
-
         __tty->type = 0;
         __tty->subtype = 0;
         
         __tty->flags = 0;
-
 
         // not stopped
         __tty->stopped = FALSE;
@@ -210,10 +203,10 @@ struct tty_d *tty_create(void){
 
         __tty->_rbuffer->used  = TRUE;
         __tty->_rbuffer->magic = 1234;
-               
+
         __tty->_cbuffer->used  = TRUE;
         __tty->_cbuffer->magic = 1234;
-        
+
         __tty->_obuffer->used  = TRUE;
         __tty->_obuffer->magic = 1234;
 
@@ -261,9 +254,7 @@ struct tty_d *tty_create(void){
         __tty->_obuffer->_w = 0; 
 
 
-
-
-        // system metrics .
+        // system metrics.
         
         // cursor dimentions in pixels.
         // #bugbug: determined.
@@ -304,7 +295,6 @@ struct tty_d *tty_create(void){
 // ==========================================
 __ok_register:
 
-
     if ( (void *) __tty == NULL ){
         panic("tty_create: __tty\n");
     }
@@ -336,12 +326,10 @@ __ok_register:
     }else{
 
        // file
-       
+
         __file->____object = ObjectTypeTTY;
- 
         __file->used  = TRUE;
         __file->magic = 1234;
-
         __file->isDevice = TRUE;
 
         // A estrutura de tty associada com esse arquivo.
@@ -366,18 +354,16 @@ __ok_register:
 
         // Esse é o arquivo que aponta para essa estrutura.
         __tty->_fp = __file;
-        
-        
+
         // #todo
         // precisamos pegar um slot livre na lista de objetos abertos pelo processo.
         // O indice da tty é fd do arquivo que aponta para a tty.
         //__tty->index = __file->_file;
         __tty->index = -1;
-        
 
-        //
-        // == Register ===========================================
-        //
+//
+// == Register =====================
+//
 
         // #importante
         // Essa é a tabela de montagem de dispositivos.
@@ -386,13 +372,14 @@ __ok_register:
         // vamos criar uma string aqui usando sprint e depois duplicala.
         // See: ??
         
-        devmgr_register_device ( (file *) __file, 
-             newname,                    // device name.  
-             0,                          // class (char, block, network)
-             1,                          // type (pci, legacy
-             (struct pci_device_d *) 0,  // pci device
-             NULL );                     // tty driver
-    
+        devmgr_register_device ( 
+            (file *) __file, 
+            newname,                    // device name.  
+            0,                          // class (char, block, network)
+            1,                          // type (pci, legacy
+            (struct pci_device_d *) 0,  // pci device
+            NULL );                     // tty driver
+
     };
 // ==========================================
 
@@ -404,9 +391,6 @@ __ok_register:
     // ok.
     return (struct tty_d *) __tty;
 }
-
-
-
 
 
 /*
@@ -1081,6 +1065,7 @@ void tty_flush( struct tty_d *tty )
 
 // Copia a estrutura de termios
 // para o aplicativo em ring3 poder ler.
+// #todo #maybe: Retornar a quantidade lida?
 int 
 tty_gets ( 
     struct tty_d *tty, 
@@ -1104,7 +1089,6 @@ tty_gets (
 
     return 0;
 }
-
 
 
 // Copia de ring3 para o kernel.
@@ -1152,7 +1136,6 @@ tty_sets (
             ret = -1;
             break;
     };
-
 
     return (ret);
 }
@@ -1413,8 +1396,8 @@ void tty_intr (struct tty_d *tty, int signal)
 
 
 
-void tty_stop (struct tty_d *tty){
-
+void tty_stop (struct tty_d *tty)
+{
     if ( (void *) tty == NULL ){
         debug_print("tty_stop: tty\n");
         return;
@@ -1431,8 +1414,8 @@ void tty_stop (struct tty_d *tty){
 }
 
 
-void tty_start (struct tty_d *tty){
-
+void tty_start (struct tty_d *tty)
+{
     if ( (void *) tty == NULL ){
         debug_print("tty_start: tty\n");
         return;
@@ -1474,13 +1457,11 @@ int tty_driver_install_tty (struct ttydrv_d *driver,struct tty_d *tty)
 
 
 /*
- **********************************************
  * tty_reset_termios: 
  *    Reset termios in a given tty.
  */
 
 // See: ttydef.h
-
 // #todo: use int as return.
 
 void tty_reset_termios ( struct tty_d *tty )
@@ -1506,44 +1487,38 @@ void tty_reset_termios ( struct tty_d *tty )
     // ^d
     // 4 - (CEOF: <Ctrl>d or ASCII EOT)
     tty->termios.c_cc[VEOF] = CEOF;
-    
+
     // Bugbug overflow ??
     // ? - 0xff  
     // 2;  //BS
-    //tty->termios.c_cc[VEOL]   = CEOL;    
-    
+    //tty->termios.c_cc[VEOL]   = CEOL; 
     
     // ^h
     // (CERASE: <Ctrl>h or ASCII BS)
     // 0x7f ??
     // 8;  //BS
     tty->termios.c_cc[VERASE] = CERASE;
-      
 
     // ^c
     // (CINTR: rubout or ASCII DEL)   
     //3;  //EOI  
-    tty->termios.c_cc[VINTR]  = CINTR;   
-    
+    tty->termios.c_cc[VINTR]  = CINTR;
+
     // ^u
     // (CKILL: <Ctrl>u or ASCII NAK)
     // ? - 1;  //BS
-    tty->termios.c_cc[VKILL]  = CKILL;   
-    
+    tty->termios.c_cc[VKILL]  = CKILL;
 
     // ^\
     // (CQUIT: <Ctrl>\ or ASCII FS) 
     // ? - 0x1C
     //28; //FS
-    tty->termios.c_cc[VQUIT]  = CQUIT;   
-    
+    tty->termios.c_cc[VQUIT]  = CQUIT;
 
     // ^z 
     // (CSUSP: <Ctrl>z or ASCII SUB) 
     //26; //BS
     tty->termios.c_cc[VSUSP]  = CSUSP;   
-
-
 
     // #todo
 	//tty->win_size.ws_col = 80;
@@ -1717,9 +1692,9 @@ struct tty_d *file_tty (file *f)
 
 
 
-//#todo: 
-int tty_delete ( struct tty_d *tty ){
-
+// #todo: 
+int tty_delete ( struct tty_d *tty )
+{
     // Nothing to do.
     if ( (void *) tty == NULL ){
         debug_print ("tty_delete: tty\n");

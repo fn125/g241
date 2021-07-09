@@ -294,7 +294,6 @@ unsigned short rtcGetBaseMemory (void){
 
 
 /*
- *****************************************************************
  * get_cmos_info:
  *     Obs: Essa função deve ser chamada apenas uma vez na inicialização
  * do módulo. @todo: Criar métodos que pegam esses valores salvos na 
@@ -370,6 +369,8 @@ void *get_cmos_info (void){
  * tem que criar função pra isso.
  * essa aqui so deveria pegar as informações e colocar em estrutura.
  */
+
+// Called by init_executive in system.c
 
 int init_clock (void){
 

@@ -1302,7 +1302,8 @@ fail:
 
 // Called by __local_insert_line() and  console_outbyte().
 
-void console_scroll (int console_number){
+void console_scroll (int console_number)
+{
 
     // Salvar cursor.
     unsigned long OldX=0;
@@ -1324,7 +1325,7 @@ void console_scroll (int console_number){
 
 
     // Scroll the screen rectangle.
-    // See: windows/rect.c
+    // See: rect.c
 
     scroll_screen_rect();
 
@@ -1357,9 +1358,8 @@ void console_scroll (int console_number){
 
 
 /*
- ********************************
  * kclear:
- *     Limpa a tela em text mode.
+ *     Limpa a tela
  */
 
 int kclear (int color, int console_number)
@@ -1433,7 +1433,6 @@ void REFRESH_STREAM ( file *f )
 
     int cWidth  = get_char_width();
     int cHeight = get_char_height();
-
 
 
     debug_print("console.c-REFRESH_STREAM: [FIXME] It is wrong!\n");
@@ -1756,6 +1755,7 @@ void consoleBlinkTextCursor(void)
 done:
     return;
 }
+
 
 /*
  ********************************************** 

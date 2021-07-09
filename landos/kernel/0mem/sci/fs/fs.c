@@ -41,8 +41,8 @@
 // entradas que podemos acessar na fat.
 // Ou e' apenas o limite da lista.
 
-#define  CLUSTERS_TO_SAVE_MAX    (32*1024)
 //#define  CLUSTERS_TO_SAVE_MAX    (8*1024) //#bugbug
+#define  CLUSTERS_TO_SAVE_MAX    (32*1024)
 
 unsigned short fat16ClustersToSave[CLUSTERS_TO_SAVE_MAX];
 
@@ -854,7 +854,6 @@ void set_global_open_file ( void *file, int Index )
     }
 
 	// Include pointer in the list.
-
 
      file_table[Index] = (unsigned long) file;
 }
@@ -1730,10 +1729,8 @@ sys_load_path (
 void fs_init_fat (void)
 {
 
-    //
+
     // The root file system structure.
-    //
-    
     // "/"
 
     if ( (void *) root == NULL ){
@@ -1792,9 +1789,9 @@ void fs_init_structures (void)
 {
     int Type=0;
 
-    //
-    // The root file system.
-    //
+//
+// The root file system.
+//
     
     // "/"
 
@@ -1827,9 +1824,9 @@ void fs_init_structures (void)
     };
 
 
-
-    // Type.
-    
+//
+// Type
+// 
     // #bugbug: 
     // Em qual disco e volume pegamos o tipo de sistema de arquivos?
 
@@ -1933,7 +1930,6 @@ done:
  ********************************************************
  * fsInit:
  *     Initializes the fs support.
- * 
  */
 
 // #todo
@@ -1943,8 +1939,6 @@ done:
 int fsInit (void){
 
     int slot = -1;
-
-
 
     debug_print ("fsInit:\n");
 
@@ -1963,17 +1957,17 @@ int fsInit (void){
     fat16Init();
 
 
-	//
-	// == fileList =========================
-	//
+//
+// == fileList =========================
+//
 
 	// Agora inicialzamos as stream 4 e 5.
 	// As anteriores foram inicializadas em stdio,
 	// pois s�o o fluxo padr�o.
 
-    //
-    // == volume1_rootdir =========================================== 
-    //
+//
+// == volume1_rootdir =========================================== 
+//
 
     // pega slot em file_table[] para
     slot = get_free_slots_in_the_file_table();
@@ -2024,11 +2018,9 @@ int fsInit (void){
     };
 
 
-    //
-    // == volume2_rootdir =========================================== 
-    //
-
-
+//
+// == volume2_rootdir =========================================== 
+//
     // pega slot em file_table[] para
     slot = get_free_slots_in_the_file_table();
     if (slot<0 || slot >= NUMBER_OF_FILES){
@@ -2071,24 +2063,21 @@ int fsInit (void){
         // ... 
     };
 
-    //
-    // == pipe_gramadocore_init_execve ================================ 
-    //
+//
+// == pipe_gramadocore_init_execve ================================ 
+//
 
 	//
 	// ## Inicializando os pipes usados em execve ## 
 	//
 
-	
 	//gramado core init execve 
 	
 	//aloca memoria para a estrutura.
     pipe_gramadocore_init_execve = (file *) kmalloc ( sizeof(file) );
 
-    if ( (void *) pipe_gramadocore_init_execve == NULL )
-    {
+    if ( (void *) pipe_gramadocore_init_execve == NULL ){
         panic ("fsInit: pipe_gramadocore_init_execve\n");
-
     }else{
 
         // Aloca memória para o buffer.
@@ -2117,6 +2106,9 @@ int fsInit (void){
     };
 
 
+
+
+
     // Initialize directory facility structures.
 
     init_directory_facilities();
@@ -2133,11 +2125,10 @@ int fsInit (void){
 
 
 // done:
-
     debug_print ("fsInit: done\n");
-
     return 0;
 }
+
 
 int init_directory_facilities(void)
 {
@@ -2195,10 +2186,9 @@ int init_directory_facilities(void)
 int fat16Init (void)
 {
     debug_print ("fat16Init:\n");
-    
+
     fat_cache_loaded = CACHE_NOT_LOADED;
     fat_cache_saved  = CACHE_NOT_SAVED;
-
 
 	// Type - Configura o tipo de sistema de arquivos usado. 
 	// No caso, (fat16).
@@ -2245,7 +2235,6 @@ int fat16Init (void)
 
     fs_init_structures();
     fs_init_fat();
-
 
     debug_print ("fat16Init: done\n");
     return 0;
@@ -2469,7 +2458,7 @@ void fsInitTargetDir (unsigned long dir_address, char *name)
 
 /*
  **************************************
- * fs_initialize_process_pwd:
+ * fs_initialize_process_cwd:
  *     Cada processo deve inicialiar seus dados aqui. 
  */
 
@@ -2880,7 +2869,7 @@ int fs_search_inode_table( char *path )
 
 /*
  ************************************* 
- * sys_read_file: 
+ * sys_read_file_from_disk: 
  * 
  *     This is called by sys_open() in sys.c
  */
@@ -3321,15 +3310,12 @@ __OK:
     p->Objects[__slot] = (unsigned long) __file;
 
 
-
     //printf ("done\n");
     //refresh_screen();
-          
-    //
-    // Done.
-    // Vamos retornar o fd.
-    // Pois essa rotina � usada por open();
-    //      
+
+// Done.
+// Vamos retornar o fd.
+// Pois essa rotina � usada por open();
 
     debug_print ("sys_read_file_from_disk: done\n");
                   
@@ -3432,10 +3418,9 @@ fail:
 }
 
 
-
 /*
  *****************************
- * sys_write_file:
+ * sys_write_file_to_disk:
  *     Interface para salvar arquivo ou diretório.
  *     Isso pode ser usado para criar um diretório ou 
  * copiar um diretório. 
@@ -3444,7 +3429,6 @@ fail:
 // #todo:
 // vamos fazer igual ao sys_read_file 
 // e criarmos opções ... se possível.
-
 
 // IN: 
 // name, size in sectors, size in bytes, adress, flag.
@@ -3596,10 +3580,8 @@ int sys_create_empty_file ( char *file_name )
     // We need a buffer in another place.
 
     char buffer[512];
-
     int size_in_bytes     = 512;
     int number_of_sectors = 1;
-
 
 
     //#todo
@@ -3824,6 +3806,9 @@ int fat16_create_new_file ( ... );
 int fat16_create_new_file ( ... )
 {}
 */
+
+
+
 
 /*
  **************
@@ -4087,12 +4072,11 @@ fsLoadFile (
     if ( FileSize > BufferLimit )
     {
         debug_print ("fsLoadFile: [FAIL] Buffer Overflow\n");
-        debug_print ("fsLoadFile: [FAIL] Buffer Overflow\n");
+             printf ("fsLoadFile: [FAIL] Buffer Overflow, FileSize %d\n",FileSize);
         goto fail;
     }
 
 
-    
     // We are opening the root dir.
     //if ( file_name[0] == '/' && size == 1 )
     //{
@@ -4361,7 +4345,7 @@ fail:
 
 
 
-//not tested yet
+// Not tested yet
 unsigned long 
 fsLoadFile2 ( 
     struct file_context_d *fc, 
@@ -5219,7 +5203,6 @@ fail:
     printf      ("fsSaveFile: [FAIL]\n");
     refresh_screen ();
     return (int) 1;
-
 }
 
 

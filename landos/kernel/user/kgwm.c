@@ -2426,7 +2426,6 @@ __kgwm_ps2kbd_procedure (
 
 
 
-
 int init_gramado (void)
 {
     debug_print ("init_gramado: [?? fixme]\n");

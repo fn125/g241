@@ -149,8 +149,8 @@ void tsCallExtraRoutines(void)
  * Called by KiTaskSwitch.
  */
  
-void task_switch (void){
-
+void task_switch (void)
+{
     struct process_d  *P;
     struct thread_d   *Current;
 
@@ -384,7 +384,7 @@ The remainder ??
             }
 
             //
-            // === Spawn nre thread ==================================
+            // === Spawn thread ==================================
             //
 
             // Check for a thread in standby.
@@ -668,18 +668,18 @@ dispatch_current:
 
 
 /*
- ***************************************************
  * set_task_status:
  *    Configura o status do mecanismo de task switch.
  *    Se o mecanismo de taskswitch estiver desligado 
  * não ocorrerá a mudança.
  *
  * @todo: Mudar o nome dessa função para taskswitchSetStatus(.);
- *
  */ 
+
+// #bugbug: Mudar para int.
+
 void set_task_status( unsigned long status )
 {
-    //#bugbug: Mudar para int.
     task_switch_status = (unsigned long) status;
 }
 
@@ -690,8 +690,8 @@ void set_task_status( unsigned long status )
  * @todo: Mudar o nome dessa função para taskswitchGetStatus();.
  */
 
-    //#bugbug: Mudar para int.
-    
+//#bugbug: Mudar para int.
+
 unsigned long get_task_status (void)
 {
     return (unsigned long) task_switch_status;

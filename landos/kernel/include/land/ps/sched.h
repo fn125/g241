@@ -1,5 +1,5 @@
 /*
- * File: sched/sched.h
+ * File: ps/sched.h
  *
  * Descrição:
  *     Header do scheduler. 
@@ -16,21 +16,19 @@
  *     2015 - Created by Fred Nora.
  */
 
-
 #ifndef __SCHED_H
 #define __SCHED_H    1
 
 
- 
 //#define NR_TASKS ??
 //#define FIRST_TASK ?
 //#define LAST_TASK ? 
 
-//Status do scheduler.
+// Status do scheduler.
 #define LOCKED    0
 #define UNLOCKED  1  
 
-//Tipo de scheduler.
+// Tipo de scheduler.
 #define SCHEDULER_NULL   0
 #define SCHEDULER_RR     1
 #define SCHEDULER_READY  2
@@ -38,29 +36,25 @@
 
 // Hz padrão. 100Hz. 
 // Uma interrupção a cada 10ms.
-#define HZ 100
+#define HZ  100
 
 // Tranca
 // #define LATCH (1193180/HZ)
 
-
-
-//
 // Tipos diferentes de scheduler. 
 // Usado pelo desenvolvedor.
 // RR. Priority ....
-//
 
 int schedulerType;
 
-
-//@todo: deletar isso, usa-se a fila do dispatcher. 
+// @todo: 
+// deletar isso, usa-se a fila do dispatcher. 
 unsigned long schedulerQueue[4]; 
 
 
 
 //
-// Protótipos:
+// == prototypes ============
 //
  
 

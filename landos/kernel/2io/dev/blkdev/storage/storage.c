@@ -19,13 +19,11 @@
 //  disk support
 //
 
-
 void diskShowCurrentDiskInfo (void)
 {
-
     if (current_disk<0)
         return;
- 
+
     printf ("The current disk is %d\n", current_disk );
 
     diskShowDiskInfo (current_disk);
@@ -96,8 +94,8 @@ void disk_show_info (void)
 
     printf ("~Disk info:\n");
 
-    CurrentIDEChannel = ata_get_current_ide_channel();
-    CurrentIDEdevice  = ata_get_current_ide_device();
+    CurrentIDEChannel  = ata_get_current_ide_channel();
+    CurrentIDEdevice   = ata_get_current_ide_device();
     BootTimeIDEChannel = ata_get_boottime_ide_channel();
     BootTimeIDEdevice  = ata_get_boottime_ide_device();
 
@@ -194,9 +192,7 @@ void *disk_get_current_disk_info (void)
  * disk_init:
  *
  *     Initialize the disk manager.
- *
  */
-
 
 // #bugbug
 // #fixme
@@ -204,7 +200,6 @@ void *disk_get_current_disk_info (void)
 // Probably the 'ide module' will discover all the ide disks
 // and rebuild the list. This way all the information made here
 // was gone. #fixme
-
 
 int disk_init (void)
 {
@@ -260,6 +255,10 @@ int disk_init (void)
         // This info was provide by BIOS at boot time.
         // That is why we call this 'boot_disk_number'.
         // See: core/info.c
+
+        // #bugbug #todo
+        // Nao chamar um metodo fora desse modulo 
+        // para realizar esse trabalho.
 
         d->boot_disk_number = (char) info_get_boot_info(3);
 
@@ -423,7 +422,7 @@ void volumeShowCurrentVolumeInfo (void)
  * volumeShowVolumeInfo:
  *
  */
- 
+
 int volumeShowVolumeInfo ( int descriptor ){
 
     struct volume_d *v;
@@ -658,7 +657,7 @@ int volume_init (void){
 }
 
 
-//show info for all volumes in the list.
+// Show info for all volumes in the list.
 void volume_show_info (void)
 {
     int i;

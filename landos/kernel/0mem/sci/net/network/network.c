@@ -327,7 +327,7 @@ fail:
 
 // #importante
 // O kernel vai chamar essa rotina para que ela coloque o conteudo do
-// buffer no endreço de buffer indicado no argumento
+// buffer no endereço de buffer indicado no argumento
 // o endereço do argumento será o endereço usado pelo controlador na hora do send.
 // Retirar um buffer de uma lista de buffers.
 // O gns chamará essa rotina e copiará um buffer para ring3, 
@@ -682,7 +682,6 @@ network_procedure (
 }
 
 
-
 void networkSetstatus (int status)
 {
     if ( status < 0 || status > 1 )
@@ -706,12 +705,10 @@ int networkGetStatus (void)
  * 
  * It only initializes some network structures. 
  * Not the adapters.
- * 
- *     Initialize the buffers used by the NIC adapter.
- *     Initialize HostInfo structure.
- *     Create a default socket structure for localhost. 
- *     CurrentSocket = LocalHostHTTPSocket
- * 
+ * Initialize the buffers used by the NIC adapter.
+ * Initialize HostInfo structure.
+ * Create a default socket structure for localhost. 
+ * CurrentSocket = LocalHostHTTPSocket
  */ 
 
 int networkInit (void)

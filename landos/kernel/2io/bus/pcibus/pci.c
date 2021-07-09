@@ -1124,11 +1124,9 @@ pciHandleDevice (
 	//#debug
 	//printf ("bus=%d dev=%d fun=%d \n", bus, dev, fun);
 
-    //
-    // PCI device
-    //
-
-
+//
+// PCI device
+//
     D = (void *) kmalloc ( sizeof( struct pci_device_d  ) );
 
     if ( (void *) D == NULL ){
@@ -1151,7 +1149,6 @@ pciHandleDevice (
         D->Device = (unsigned short) pciCheckDevice(bus,dev);
 
         D->name = "pci-device-no-name";
-
 
 		// #debug
 		// printf ("$ vendor=%x device=%x \n",D->Vendor, D->Device);
